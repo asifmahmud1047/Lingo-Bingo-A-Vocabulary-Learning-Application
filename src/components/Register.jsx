@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -12,7 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [error, setError] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const auth = getAuth();
 
   const handleRegister = async (e) => {
