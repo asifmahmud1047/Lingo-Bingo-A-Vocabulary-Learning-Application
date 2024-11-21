@@ -1,0 +1,112 @@
+const japaneseWords = [
+  {
+    "id": "word001",
+    "word": "ありがとう",
+    "pronunciation": "arigatou",
+    "meaning": "thank you",
+    "part_of_speech": "expression",
+    "difficulty": "easy",
+    "lesson_no": 1,
+    "when_to_say": "Used to express gratitude in informal settings.",
+    "example": "ありがとう、手伝ってくれて！ (arigatou, tetsudatte kurete!) - Thank you for helping me!"
+  },
+  {
+    "id": "word002",
+    "word": "こんにちは",
+    "pronunciation": "konnichiwa",
+    "meaning": "hello",
+    "part_of_speech": "greeting",
+    "difficulty": "easy",
+    "lesson_no": 1,
+    "when_to_say": "Used to greet someone in the afternoon.",
+    "example": "こんにちは、お元気ですか？ (Konnichiwa, ogenki desu ka?) - Hello, how are you?"
+  },
+  {
+    "id": "word003",
+    "word": "さようなら",
+    "pronunciation": "sayounara",
+    "meaning": "goodbye",
+    "part_of_speech": "expression",
+    "difficulty": "easy",
+    "lesson_no": 2,
+    "when_to_say": "Used when parting ways with someone.",
+    "example": "さようなら、また会いましょう。 (Sayounara, mata aimashou.) - Goodbye, see you again."
+  },
+  {
+    "id": "word004",
+    "word": "おはよう",
+    "pronunciation": "ohayou",
+    "meaning": "good morning",
+    "part_of_speech": "greeting",
+    "difficulty": "easy",
+    "lesson_no": 1,
+    "when_to_say": "Used to greet someone in the morning.",
+    "example": "おはよう！元気？ (Ohayou! Genki?) - Good morning! How are you?"
+  },
+  {
+    "id": "word005",
+    "word": "ありがとうございまし",
+    "pronunciation": "arigatou gozaimasu",
+    "meaning": "thank you very much",
+    "part_of_speech": "expression",
+    "difficulty": "medium",
+    "lesson_no": 2,
+    "when_to_say": "Used to express gratitude in formal situations.",
+    "example": "本当にありがとうございます！(Hontou ni arigatou gozaimasu!) - Thank you very much!"
+  },
+  {
+    "id": "word006",
+    "word": "すみません",
+    "pronunciation": "sumimasen",
+    "meaning": "excuse me, sorry",
+    "part_of_speech": "expression",
+    "difficulty": "medium",
+    "lesson_no": 2,
+    "when_to_say": "Used to get someone's attention or apologize.",
+    "example": "すみません、道を教えてください。 (Sumimasen, michi wo oshiete kudasai.) - Excuse me, could you tell me the way?"
+  },
+  {
+    "id": "word007",
+    "word": "はい",
+    "pronunciation": "hai",
+    "meaning": "yes",
+    "part_of_speech": "interjection",
+    "difficulty": "easy",
+    "lesson_no": 1,
+    "when_to_say": "Used to affirmatively respond.",
+    "example": "はい、わかりました。 (Hai, wakarimashita.) - Yes, I understand."
+  },
+  {
+    "id": "word008",
+    "word": "いいえ",
+    "pronunciation": "iie",
+    "meaning": "no",
+    "part_of_speech": "interjection",
+    "difficulty": "easy",
+    "lesson_no": 1,
+    "when_to_say": "Used to negatively respond.",
+    "example": "いいえ、行きません。 (Iie, ikimasen.) - No, I won't go."
+  },
+  {
+    "id": "word009",
+    "word": "どういたしまして",
+    "pronunciation": "dou itashimashite",
+    "meaning": "you're welcome",
+    "part_of_speech": "expression",
+    "difficulty": "easy",
+    "lesson_no": 1,
+    "when_to_say": "Used in response to 'thank you'.",
+    "example": "A: ありがとう！ (Arigatou!) - Thank you! B: どういたしまして (Dou itashimashite) - You're welcome."
+  },
+  {
+    "id": "word010",
+    "word": "わかりません",
+    "pronunciation": "wakarimasen",
+    "meaning": "I don't understand",
+    "part_of_speech": "phrase",
+    "difficulty": "medium",
+    "lesson_no": 2,
+    "when_to_say": "Used when you don't understand something.",
+    "example": "すみません、わかりません。 (Sumimasen, wakarimasen.) - Excuse me, I don't understand."
+  }
+]
