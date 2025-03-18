@@ -8,6 +8,8 @@ import ForgotPassword from "./components/ForgotPassword";
 import StartLearning from "./components/StartLearning";
 import Profile from "./components/Profile";
 import Tutorials from "./components/Tutorials";
+import TutorialDetail from "./components/TutorialDetail";
+import AboutUs from "./components/AboutUs";
 
 const App = () => {
   return (
@@ -22,7 +24,9 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/start-learning" element={<StartLearning />} />
             <Route path="/tutorials" element={<Tutorials />} />
+            <Route path="/tutorials/:id" element={<TutorialDetail />} />
             <Route path="/my-profile" element={<Profile />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route
               path="*"
               element={
