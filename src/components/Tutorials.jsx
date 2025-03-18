@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import useTutorialProgress from '../hooks/useTutorialProgress';
+import PropTypes from 'prop-types';
 
 export const tutorialsData = [
   {
@@ -54,6 +55,85 @@ export const tutorialsData = [
   },
 ];
 
+// Preload tutorial images to improve perceived performance
+const preloadImages = () => {
+  tutorialsData.forEach(tutorial => {
+    const img = new Image();
+    img.src = tutorial.image;
+  });
+};
+
+// Define TutorialCard component outside the main component
+const TutorialCard = ({ tutorial, isCompleted, isInProgress }) => {
+  return (
+    <div className="bg-white rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105">
+      <div className="relative">
+        <img 
+          src={tutorial.image} 
+          alt={tutorial.title} 
+          className="w-full h-48 object-cover"
+          loading="lazy"
+        />
+        {(isCompleted || isInProgress) && (
+          <div className="absolute top-2 right-2">
+            {isCompleted ? (
+              <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs">
+                Completed
+              </span>
+            ) : (
+              <span className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs">
+                In Progress
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+      <div className="p-4">
+        <div className="flex justify-between items-center mb-2">
+          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+            tutorial.level === 'Beginner' ? 'bg-green-100 text-green-800' : 
+            tutorial.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' : 
+            'bg-red-100 text-red-800'
+          }`}>
+            {tutorial.level}
+          </span>
+          <span className="text-xs text-gray-500">{tutorial.duration}</span>
+        </div>
+        <h3 className="text-lg font-bold mb-2">{tutorial.title}</h3>
+        <p className="text-gray-600 mb-4">{tutorial.description}</p>
+        <Link 
+          to={`/tutorials/${tutorial.id}`} 
+          className={`block w-full py-2 rounded-lg text-center ${
+            isCompleted 
+              ? 'bg-green-500 text-white hover:bg-green-600' 
+              : 'bg-blue-500 text-white hover:bg-blue-600'
+          }`}
+        >
+          {isCompleted 
+            ? 'Review Tutorial' 
+            : isInProgress 
+            ? 'Continue Tutorial' 
+            : 'Start Tutorial'}
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+// Add PropTypes for TutorialCard
+TutorialCard.propTypes = {
+  tutorial: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    level: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired
+  }).isRequired,
+  isCompleted: PropTypes.bool.isRequired,
+  isInProgress: PropTypes.bool.isRequired
+};
+
 const Tutorials = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLevel, setSelectedLevel] = useState('All');
@@ -64,23 +144,37 @@ const Tutorials = () => {
     getTutorialProgressPercentage 
   } = useTutorialProgress();
 
-  const handleSearch = (e) => {
+  // Preload images on component mount
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
+  const handleSearch = useCallback((e) => {
     setSearchTerm(e.target.value);
-  };
+  }, []);
 
-  const handleLevelFilter = (level) => {
+  const handleLevelFilter = useCallback((level) => {
     setSelectedLevel(level);
-  };
+  }, []);
 
-  const filteredTutorials = tutorialsData.filter((tutorial) => {
-    const matchesSearch = tutorial.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredTutorials = useMemo(() => {
+    return tutorialsData.filter((tutorial) => {
+      const matchesSearch = tutorial.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          tutorial.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLevel = selectedLevel === 'All' || tutorial.level === selectedLevel;
-    
-    return matchesSearch && matchesLevel;
-  });
+      const matchesLevel = selectedLevel === 'All' || tutorial.level === selectedLevel;
+      
+      return matchesSearch && matchesLevel;
+    });
+  }, [searchTerm, selectedLevel]);
 
-  const progressPercentage = user ? getTutorialProgressPercentage(tutorialsData.length) : 0;
+  const progressPercentage = useMemo(() => {
+    return user ? getTutorialProgressPercentage(tutorialsData.length) : 0;
+  }, [user, getTutorialProgressPercentage]);
+
+  const clearFilters = useCallback(() => {
+    setSearchTerm(''); 
+    setSelectedLevel('All');
+  }, []);
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
@@ -153,7 +247,7 @@ const Tutorials = () => {
         <div className="text-center py-10">
           <p className="text-xl text-gray-500">No tutorials found matching your criteria.</p>
           <button 
-            onClick={() => {setSearchTerm(''); setSelectedLevel('All');}} 
+            onClick={clearFilters} 
             className="mt-4 text-blue-500 underline"
           >
             Clear all filters
@@ -166,56 +260,12 @@ const Tutorials = () => {
             const isInProgress = user && isTutorialInProgress(tutorial.id);
             
             return (
-              <div key={tutorial.id} className="bg-white rounded-lg overflow-hidden shadow-md transition-transform hover:scale-105">
-                <div className="relative">
-                  <img 
-                    src={tutorial.image} 
-                    alt={tutorial.title} 
-                    className="w-full h-48 object-cover"
-                  />
-                  {user && (isCompleted || isInProgress) && (
-                    <div className="absolute top-2 right-2">
-                      {isCompleted ? (
-                        <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs">
-                          Completed
-                        </span>
-                      ) : (
-                        <span className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs">
-                          In Progress
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
-                <div className="p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                      tutorial.level === 'Beginner' ? 'bg-green-100 text-green-800' : 
-                      tutorial.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' : 
-                      'bg-red-100 text-red-800'
-                    }`}>
-                      {tutorial.level}
-                    </span>
-                    <span className="text-xs text-gray-500">{tutorial.duration}</span>
-                  </div>
-                  <h3 className="text-lg font-bold mb-2">{tutorial.title}</h3>
-                  <p className="text-gray-600 mb-4">{tutorial.description}</p>
-                  <Link 
-                    to={`/tutorials/${tutorial.id}`} 
-                    className={`block w-full py-2 rounded-lg text-center ${
-                      isCompleted 
-                        ? 'bg-green-500 text-white hover:bg-green-600' 
-                        : 'bg-blue-500 text-white hover:bg-blue-600'
-                    }`}
-                  >
-                    {isCompleted 
-                      ? 'Review Tutorial' 
-                      : isInProgress 
-                      ? 'Continue Tutorial' 
-                      : 'Start Tutorial'}
-                  </Link>
-                </div>
-              </div>
+              <TutorialCard 
+                key={tutorial.id} 
+                tutorial={tutorial} 
+                isCompleted={Boolean(isCompleted)}
+                isInProgress={Boolean(isInProgress)}
+              />
             );
           })}
         </div>
