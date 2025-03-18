@@ -73,8 +73,14 @@ const TutorialDetail = () => {
   const handleCompleteTutorial = useCallback(() => {
     if (tutorial && user) {
       completeTutorial(tutorial.id);
+      
+      // Add a small delay before navigation to ensure state updates
+      setTimeout(() => {
+        navigate('/tutorials');
+      }, 100);
+    } else {
+      navigate('/tutorials');
     }
-    navigate('/tutorials');
   }, [tutorial, user, completeTutorial, navigate]);
 
   // Render the loading state

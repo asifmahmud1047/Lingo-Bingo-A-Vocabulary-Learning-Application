@@ -144,9 +144,17 @@ const Tutorials = () => {
     getTutorialProgressPercentage 
   } = useTutorialProgress();
 
+  // Create a unique key for forcing re-render when returning to the tutorials page
+  const [updateKey, setUpdateKey] = useState(0);
+
   // Preload images on component mount
   useEffect(() => {
     preloadImages();
+  }, []);
+
+  // Force update on component mount to ensure latest progress is shown
+  useEffect(() => {
+    setUpdateKey(prev => prev + 1);
   }, []);
 
   const handleSearch = useCallback((e) => {
@@ -168,8 +176,9 @@ const Tutorials = () => {
   }, [searchTerm, selectedLevel]);
 
   const progressPercentage = useMemo(() => {
+    // Add updateKey dependency to ensure re-calculation when returning to page
     return user ? getTutorialProgressPercentage(tutorialsData.length) : 0;
-  }, [user, getTutorialProgressPercentage]);
+  }, [user, getTutorialProgressPercentage, tutorialsData.length, updateKey]);
 
   const clearFilters = useCallback(() => {
     setSearchTerm(''); 
@@ -256,12 +265,13 @@ const Tutorials = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTutorials.map((tutorial) => {
+            // Recalculate status on every render to ensure it's up to date
             const isCompleted = user && isTutorialCompleted(tutorial.id);
             const isInProgress = user && isTutorialInProgress(tutorial.id);
             
             return (
               <TutorialCard 
-                key={tutorial.id} 
+                key={`${tutorial.id}-${updateKey}`} 
                 tutorial={tutorial} 
                 isCompleted={Boolean(isCompleted)}
                 isInProgress={Boolean(isInProgress)}

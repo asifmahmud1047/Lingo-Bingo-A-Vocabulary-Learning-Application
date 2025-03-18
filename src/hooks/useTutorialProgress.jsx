@@ -65,15 +65,34 @@ export const useTutorialProgress = () => {
   const completeTutorial = useCallback((tutorialId) => {
     if (!user) return;
     
+    // Update completed tutorials
     setCompletedTutorials(prev => {
       if (prev.includes(tutorialId)) return prev;
-      return [...prev, tutorialId];
+      const newCompleted = [...prev, tutorialId];
+      
+      // Immediately save to localStorage
+      try {
+        localStorage.setItem(`completedTutorials_${user.uid}`, JSON.stringify(newCompleted));
+      } catch (error) {
+        console.error('Error saving completed tutorials:', error);
+      }
+      
+      return newCompleted;
     });
     
     // Remove from in-progress if it's there
-    setInProgressTutorials(prev => 
-      prev.filter(id => id !== tutorialId)
-    );
+    setInProgressTutorials(prev => {
+      const filtered = prev.filter(id => id !== tutorialId);
+      
+      // Immediately save to localStorage
+      try {
+        localStorage.setItem(`inProgressTutorials_${user.uid}`, JSON.stringify(filtered));
+      } catch (error) {
+        console.error('Error saving in-progress tutorials:', error);
+      }
+      
+      return filtered;
+    });
   }, [user]);
   
   // Check if a tutorial is completed - memoized for performance
@@ -88,10 +107,24 @@ export const useTutorialProgress = () => {
   
   // Get progress percentage - memoized for performance
   const getTutorialProgressPercentage = useCallback((totalTutorials) => {
+    // Always read from localStorage to get the most up-to-date value
+    if (user && totalTutorials > 0) {
+      try {
+        const storedCompleted = localStorage.getItem(`completedTutorials_${user.uid}`);
+        if (storedCompleted) {
+          const completedCount = JSON.parse(storedCompleted).length;
+          return Math.round((completedCount / totalTutorials) * 100);
+        }
+      } catch (error) {
+        console.error('Error reading completed tutorials for progress calculation:', error);
+      }
+    }
+    
+    // Fallback to state-based calculation
     return totalTutorials > 0 
       ? Math.round((completedTutorials.length / totalTutorials) * 100) 
       : 0;
-  }, [completedTutorials.length]);
+  }, [user, completedTutorials.length]);
   
   // Return memoized object to prevent unnecessary re-renders
   return useMemo(() => ({
