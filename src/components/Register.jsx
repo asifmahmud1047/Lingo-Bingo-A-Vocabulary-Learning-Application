@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -36,7 +36,7 @@ const Register = () => {
         password
       );
       await updateProfile(userCredential.user, { displayName: name, photoURL });
-      history.push("/");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }

@@ -1,60 +1,233 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CountUp from "react-countup";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Home = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80",
+      title: "Learn Japanese with Lingo Bingo",
+      description: "Master the Japanese language in a fun and interactive way."
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1492571350019-22de08371fd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1953&q=80",
+      title: "Build Your Vocabulary",
+      description: "Expand your Japanese vocabulary with our proven learning methods."
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      title: "Immerse in Japanese Culture",
+      description: "Explore the rich culture and traditions behind the language."
+    }
+  ];
+
+  // Initialize AOS animation library
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  }, []);
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
   return (
-    <div className="p-4">
-      <section className="text-center my-8">
-        <h1 className="text-4xl font-bold">Welcome to Lingo Bingo!</h1>
-        <p className="mt-4">
-          Learn new languages in a fun and interactive way.
-        </p>
+    <div>
+      {/* Banner/Slider Section */}
+      <section className="relative h-96 overflow-hidden">
+        {slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div className="absolute inset-0 bg-black opacity-40"></div>
+            <img
+              src={slide.image}
+              alt={`Slide ${index + 1}`}
+              className="object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+              <h2 className="text-4xl font-bold mb-4 text-center">{slide.title}</h2>
+              <p className="text-xl text-center max-w-2xl">{slide.description}</p>
+            </div>
+          </div>
+        ))}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full ${
+                index === currentSlide ? "bg-white" : "bg-white/50"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            ></button>
+          ))}
+        </div>
       </section>
-      <section className="my-8">
-        <h2 className="text-2xl font-bold">About Us</h2>
-        <p className="mt-4">
-          Lingo Bingo is designed to help you expand your vocabulary and improve
-          your communication skills in multiple languages.
-        </p>
+
+      {/* About Section */}
+      <section className="py-16 px-4 bg-blue-50" data-aos="fade-up">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">About Lingo Bingo</h2>
+          <p className="text-lg mb-8">
+            Lingo Bingo is designed to help you expand your Japanese vocabulary and 
+            improve your communication skills through interactive lessons, engaging 
+            tutorials, and practical exercises. Our platform makes learning Japanese 
+            fun and effective, whether you&apos;re a beginner or looking to advance 
+            your language skills.
+          </p>
+          <Link
+            to="/start-learning"
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg inline-block transition-colors"
+          >
+            Start Learning
+          </Link>
+        </div>
       </section>
-      <section className="my-8">
-        <h2 className="text-2xl font-bold">Our Success</h2>
-        <div className="flex justify-around mt-4">
-          <div>
-            <h3 className="text-xl font-bold">
-              <CountUp end={1000} duration={3} />+
-            </h3>
-            <p>Users</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold">
-              <CountUp end={50} duration={3} />+
-            </h3>
-            <p>Lessons</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold">
-              <CountUp end={200} duration={3} />+
-            </h3>
-            <p>Vocabularies</p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold">
-              <CountUp end={20} duration={3} />+
-            </h3>
-            <p>Tutorials</p>
+
+      {/* Success Section */}
+      <section className="py-16 px-4" data-aos="fade-up">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-10 text-center">Our Success by Numbers</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-blue-500 mb-2">
+                <CountUp end={5000} duration={2.5} separator="," />+
+              </div>
+              <p className="text-gray-600">Happy Users</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-blue-500 mb-2">
+                <CountUp end={60} duration={2.5} />+
+              </div>
+              <p className="text-gray-600">Vocabulary Words</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-blue-500 mb-2">
+                <CountUp end={10} duration={2.5} />
+              </div>
+              <p className="text-gray-600">Lessons</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-4xl font-bold text-blue-500 mb-2">
+                <CountUp end={8} duration={2.5} />
+              </div>
+              <p className="text-gray-600">Tutorials</p>
+            </div>
           </div>
         </div>
       </section>
-      <section className="my-8">
-        <h2 className="text-2xl font-bold">Get Started</h2>
-        <Link
-          to="/start-learning"
-          className="text-blue-500 underline mt-4 inline-block"
-        >
-          Start Learning Now
-        </Link>
+
+      {/* Learning Method Section */}
+      <section className="py-16 px-4 bg-gray-50" data-aos="fade-up">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-10 text-center">Our Learning Method</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-blue-500 text-2xl font-bold">1</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Learn</h3>
+              <p className="text-gray-600">
+                Study new vocabulary with clear examples and pronunciation guides.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-blue-500 text-2xl font-bold">2</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Practice</h3>
+              <p className="text-gray-600">
+                Reinforce your learning through interactive exercises and quizzes.
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-blue-500 text-2xl font-bold">3</span>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Master</h3>
+              <p className="text-gray-600">
+                Apply your knowledge in real-life scenarios to achieve fluency.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 px-4" data-aos="fade-up">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-10 text-center">What Our Users Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://i.pravatar.cc/150?img=1"
+                  alt="User 1"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="font-bold">Sarah Johnson</h3>
+                  <p className="text-gray-600">Student</p>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                &ldquo;Lingo Bingo made learning Japanese enjoyable and accessible. The bite-sized lessons fit perfectly into my busy schedule!&rdquo;
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://i.pravatar.cc/150?img=8"
+                  alt="User 2"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="font-bold">Michael Lee</h3>
+                  <p className="text-gray-600">Business Professional</p>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                &ldquo;I needed to learn Japanese for business travel. This platform provided exactly what I needed to communicate confidently with my colleagues.&rdquo;
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-16 px-4 bg-blue-500 text-white text-center" data-aos="fade-up">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4">Ready to Start Your Japanese Journey?</h2>
+          <p className="text-xl mb-8">
+            Join thousands of happy learners and begin your path to Japanese fluency today.
+          </p>
+          <Link
+            to="/start-learning"
+            className="bg-white text-blue-500 hover:bg-blue-50 py-3 px-8 rounded-lg inline-block transition-colors font-bold text-lg"
+          >
+            Get Started Now
+          </Link>
+        </div>
       </section>
     </div>
   );

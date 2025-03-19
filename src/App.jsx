@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -10,6 +12,9 @@ import Profile from "./components/Profile";
 import Tutorials from "./components/Tutorials";
 import TutorialDetail from "./components/TutorialDetail";
 import AboutUs from "./components/AboutUs";
+import PrivateRoute from "./components/PrivateRoute";
+import NotFound from "./components/NotFound";
+import LessonDetail from "./components/LessonDetail";
 
 const App = () => {
   return (
@@ -23,19 +28,47 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/start-learning" element={<StartLearning />} />
-            <Route path="/tutorials" element={<Tutorials />} />
-            <Route path="/tutorials/:id" element={<TutorialDetail />} />
-            <Route path="/my-profile" element={<Profile />} />
+            <Route 
+              path="/tutorials" 
+              element={
+                <PrivateRoute>
+                  <Tutorials />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/tutorials/:id" 
+              element={
+                <PrivateRoute>
+                  <TutorialDetail />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/lesson/:lessonNo" 
+              element={
+                <PrivateRoute>
+                  <LessonDetail />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/my-profile" 
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              } 
+            />
             <Route path="/about-us" element={<AboutUs />} />
             <Route
               path="*"
-              element={
-                <div className="text-center text-red-500">404 Not Found</div>
-              }
+              element={<NotFound />}
             />
           </Routes>
         </main>
         <Footer />
+        <ToastContainer position="bottom-right" />
       </div>
     </Router>
   );

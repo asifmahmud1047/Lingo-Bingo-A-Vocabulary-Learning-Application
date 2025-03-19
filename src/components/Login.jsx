@@ -5,16 +5,20 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { useNavigate, Link } from "react-router-dom"; // Use `useNavigate` instead of `useHistory`
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Initialize `useNavigate` instead of `useHistory`
+  const navigate = useNavigate();
+  const location = useLocation();
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
+
+  // Get the intended destination from location state, or default to home
+  const from = location.state?.from?.pathname || "/";
 
   // Handle Email/Password Login
   const handleLogin = async (e) => {
@@ -22,7 +26,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful!");
-      navigate("/"); // Use `navigate` to redirect
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.message);
       toast.error("Invalid email or password!");
@@ -34,7 +38,7 @@ const Login = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       toast.success("Login successful with Google!");
-      navigate("/"); // Use `navigate` to redirect
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error("Failed to login with Google!");
     }

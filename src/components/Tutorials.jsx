@@ -1,7 +1,6 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import useTutorialProgress from '../hooks/useTutorialProgress';
 import PropTypes from 'prop-types';
 
 export const tutorialsData = [
@@ -55,13 +54,72 @@ export const tutorialsData = [
   },
 ];
 
-// Preload tutorial images to improve perceived performance
-const preloadImages = () => {
-  tutorialsData.forEach(tutorial => {
-    const img = new Image();
-    img.src = tutorial.image;
-  });
-};
+export const japaneseVideos = [
+  {
+    id: 1,
+    title: "Japanese Alphabet - Hiragana & Katakana",
+    description: "Learn the basics of Japanese writing systems with this comprehensive guide.",
+    level: "Beginner",
+    duration: "15 minutes",
+    videoId: "2gWq0eSuH5Y"
+  },
+  {
+    id: 2,
+    title: "Basic Japanese Greetings and Phrases",
+    description: "Master essential Japanese greetings and common phrases for everyday conversations.",
+    level: "Beginner",
+    duration: "12 minutes",
+    videoId: "odjZUZW9-zE"
+  },
+  {
+    id: 3,
+    title: "Japanese Numbers and Counting",
+    description: "Learn how to count in Japanese and use numbers in daily conversation.",
+    level: "Beginner",
+    duration: "10 minutes",
+    videoId: "97QZVMjXLmA"
+  },
+  {
+    id: 4,
+    title: "Japanese Particles Explained",
+    description: "Understand the essential particles in Japanese and how to use them correctly.",
+    level: "Intermediate",
+    duration: "18 minutes",
+    videoId: "syFUwDR1jHc"
+  },
+  {
+    id: 5,
+    title: "Japanese Verb Conjugation",
+    description: "Master the art of Japanese verb conjugation with this detailed tutorial.",
+    level: "Intermediate",
+    duration: "20 minutes",
+    videoId: "7YR34z2wxGQ"
+  },
+  {
+    id: 6,
+    title: "Kanji Basics for Beginners",
+    description: "Begin your journey into learning Japanese Kanji with this beginner-friendly guide.",
+    level: "Intermediate",
+    duration: "25 minutes",
+    videoId: "mPppMzr3Pr4"
+  },
+  {
+    id: 7,
+    title: "Japanese Conversation Practice",
+    description: "Practice your Japanese with real conversation examples and scenarios.",
+    level: "Intermediate", 
+    duration: "30 minutes",
+    videoId: "YgmAEG1r8Sk"
+  },
+  {
+    id: 8,
+    title: "Advanced Japanese Grammar Patterns",
+    description: "Take your Japanese to the next level with these advanced grammar patterns.",
+    level: "Advanced",
+    duration: "22 minutes",
+    videoId: "Ay-EwILXPYQ"
+  }
+];
 
 // Define TutorialCard component outside the main component
 const TutorialCard = ({ tutorial, isCompleted, isInProgress }) => {
@@ -134,28 +192,52 @@ TutorialCard.propTypes = {
   isInProgress: PropTypes.bool.isRequired
 };
 
+const VideoTutorial = ({ video }) => {
+  return (
+    <div className="bg-white rounded-lg overflow-hidden shadow-md mb-8">
+      <div className="aspect-w-16 aspect-h-9">
+        <iframe 
+          src={`https://www.youtube.com/embed/${video.videoId}`}
+          title={video.title}
+          className="w-full h-64 md:h-80"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
+      <div className="p-4">
+        <div className="flex justify-between items-center mb-2">
+          <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+            video.level === 'Beginner' ? 'bg-green-100 text-green-800' : 
+            video.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' : 
+            'bg-red-100 text-red-800'
+          }`}>
+            {video.level}
+          </span>
+          <span className="text-xs text-gray-500">{video.duration}</span>
+        </div>
+        <h3 className="text-lg font-bold mb-2">{video.title}</h3>
+        <p className="text-gray-600">{video.description}</p>
+      </div>
+    </div>
+  );
+};
+
+VideoTutorial.propTypes = {
+  video: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    level: PropTypes.string.isRequired,
+    duration: PropTypes.string.isRequired,
+    videoId: PropTypes.string.isRequired
+  }).isRequired
+};
+
 const Tutorials = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLevel, setSelectedLevel] = useState('All');
   const { user } = useAuth();
-  const { 
-    isTutorialCompleted, 
-    isTutorialInProgress,
-    getTutorialProgressPercentage 
-  } = useTutorialProgress();
-
-  // Create a unique key for forcing re-render when returning to the tutorials page
-  const [updateKey, setUpdateKey] = useState(0);
-
-  // Preload images on component mount
-  useEffect(() => {
-    preloadImages();
-  }, []);
-
-  // Force update on component mount to ensure latest progress is shown
-  useEffect(() => {
-    setUpdateKey(prev => prev + 1);
-  }, []);
 
   const handleSearch = useCallback((e) => {
     setSearchTerm(e.target.value);
@@ -165,20 +247,15 @@ const Tutorials = () => {
     setSelectedLevel(level);
   }, []);
 
-  const filteredTutorials = useMemo(() => {
-    return tutorialsData.filter((tutorial) => {
-      const matchesSearch = tutorial.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         tutorial.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesLevel = selectedLevel === 'All' || tutorial.level === selectedLevel;
+  const filteredVideos = useMemo(() => {
+    return japaneseVideos.filter((video) => {
+      const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesLevel = selectedLevel === 'All' || video.level === selectedLevel;
       
       return matchesSearch && matchesLevel;
     });
   }, [searchTerm, selectedLevel]);
-
-  const progressPercentage = useMemo(() => {
-    // Add updateKey dependency to ensure re-calculation when returning to page
-    return user ? getTutorialProgressPercentage(tutorialsData.length) : 0;
-  }, [user, getTutorialProgressPercentage, tutorialsData.length, updateKey]);
 
   const clearFilters = useCallback(() => {
     setSearchTerm(''); 
@@ -186,23 +263,8 @@ const Tutorials = () => {
   }, []);
 
   return (
-    <div className="p-4 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Language Learning Tutorials</h1>
-      
-      {user && (
-        <div className="mb-6 bg-white p-4 rounded-lg shadow-md">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="text-lg font-semibold">Your Progress</h2>
-            <span className="text-blue-500 font-bold">{progressPercentage}%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5">
-            <div 
-              className="bg-blue-500 h-2.5 rounded-full" 
-              style={{ width: `${progressPercentage}%` }}
-            ></div>
-          </div>
-        </div>
-      )}
+    <div className="p-6 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">Japanese Language Tutorials</h1>
       
       <div className="mb-8 flex flex-col md:flex-row justify-between gap-4">
         <div className="relative flex-grow max-w-lg">
@@ -249,37 +311,43 @@ const Tutorials = () => {
           >
             Advanced
           </button>
+          {(searchTerm || selectedLevel !== 'All') && (
+            <button 
+              onClick={clearFilters}
+              className="px-4 py-2 rounded-lg bg-gray-300"
+            >
+              Clear Filters
+            </button>
+          )}
         </div>
       </div>
       
-      {filteredTutorials.length === 0 ? (
+      {filteredVideos.length === 0 ? (
         <div className="text-center py-10">
-          <p className="text-xl text-gray-500">No tutorials found matching your criteria.</p>
+          <p className="text-gray-600 text-lg">No tutorials match your search criteria.</p>
           <button 
-            onClick={clearFilters} 
-            className="mt-4 text-blue-500 underline"
+            onClick={clearFilters}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
           >
-            Clear all filters
+            Clear Filters
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTutorials.map((tutorial) => {
-            // Recalculate status on every render to ensure it's up to date
-            const isCompleted = user && isTutorialCompleted(tutorial.id);
-            const isInProgress = user && isTutorialInProgress(tutorial.id);
-            
-            return (
-              <TutorialCard 
-                key={`${tutorial.id}-${updateKey}`} 
-                tutorial={tutorial} 
-                isCompleted={Boolean(isCompleted)}
-                isInProgress={Boolean(isInProgress)}
-              />
-            );
-          })}
+        <div className="grid grid-cols-1 gap-8">
+          {filteredVideos.map((video) => (
+            <VideoTutorial key={video.id} video={video} />
+          ))}
         </div>
       )}
+
+      <div className="mt-10 text-center">
+        <Link
+          to={user ? "/start-learning" : "/login"}
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg inline-block transition-colors"
+        >
+          Learn Vocabularies
+        </Link>
+      </div>
     </div>
   );
 };

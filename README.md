@@ -1,51 +1,61 @@
-Lingo Bingo
-A Vocabulary Learning Application
+# Lingo Bingo - Japanese Vocabulary Learning Application
 
-Purpose:
-Lingo Bingo is a fun and interactive vocabulary learning application designed to help users expand their vocabulary and improve communication skills in a specific language (other than Bengali and English). With features like structured lessons, engaging tutorials, and Firebase-powered authentication, the platform makes learning accessible and enjoyable.
+A fun and interactive language learning application designed to help users expand their Japanese vocabulary and improve their communication skills.
 
-Github repo:
-https://github.com/programming-hero-web-course1/b10-a9-authentication-asifmahmud1047
+## Live Website
+[Lingo Bingo - Learn Japanese](https://lingo-bingo-japanese.netlify.app/)
 
-Live URL:
-https://lingo-bingo-60098.web.app/
+## Project Purpose
+Learning a new language can be challenging, especially when it comes to retaining vocabulary. Lingo Bingo makes this process easier and more enjoyable by providing a structured approach to learning Japanese vocabulary through interactive lessons, visual cues, and pronunciation practice.
 
-#Key Features
-Firebase Authentication:
-Email/password-based login and registration
-Google social login
-Password reset functionality
+## Key Features
+- **User Authentication**: Secure login/registration system using Firebase Authentication
+- **Japanese Vocabulary Cards**: Interactive cards displaying Japanese words with meanings, pronunciation, and usage examples
+- **Lesson-Based Structure**: Organized lessons with vocabulary grouped by difficulty and theme
+- **Text-to-Speech**: Hear the correct pronunciation of Japanese words
+- **Video Tutorials**: Watch embedded YouTube videos to enhance your learning experience
+- **Responsive Design**: Fully responsive layout for mobile, tablet, and desktop viewing
+- **User Profile**: Personalized user profiles with the ability to update information
+- **Animated Elements**: Visual feedback and animations to enhance user experience
 
-Dynamic Vocabulary Lessons:
-JSON-based vocabulary data 
+## Technologies Used
+- **React**: Frontend library for building the user interface
+- **Firebase**: Authentication and data storage
+- **React Router**: For navigation between pages
+- **Tailwind CSS**: For styling and responsive design
+- **React CountUp**: For animated number counting in statistics
+- **AOS (Animate On Scroll)**: For scroll-based animations
+- **React Toastify**: For toast notifications
+- **Web Speech API**: For text-to-speech functionality
 
-Interactive vocabulary cards with modals for detailed word information.
+## Getting Started
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create a `.env.local` file with your Firebase configuration
+4. Run the development server: `npm run dev`
 
-Responsive Design:
-Fully responsive for mobile, tablet, and desktop using Tailwind CSS.
+## Firebase Configuration
+Create a `.env.local` file in the root directory with the following variables:
+```
+VITE_apiKey=your_api_key
+VITE_authDomain=your_auth_domain
+VITE_projectId=your_project_id
+VITE_storageBucket=your_storage_bucket
+VITE_messagingSenderId=your_messaging_sender_id
+VITE_appId=your_app_id
+```
 
-Error Handling:
-Custom 404 page with a navigation option to the homepage.
-Tech Stack
+## Project Structure
+- `src/components`: React components for UI elements
+- `src/utils`: Utility functions and data files
+- `src/hooks`: Custom React hooks
+- `src/assets`: Static assets like images
 
-Frontend:
-React.js
-Tailwind CSS
+## Deployment
+The application is deployed on Netlify with continuous deployment from the main branch.
 
-Backend/Authentication:
-Firebase
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Routing:
-React Router Dom
-
-Hosting:
-Firebase
-
-#NPM Packages Used:
-
-Below are the key npm packages used in the project:
-react-router-dom: For client-side routing.
-firebase: For authentication and database management.
-react-toastify: For notifications and alerts.
-react-countup: For animated counters on the homepage.
-react-icons: For icons used throughout the application.
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
