@@ -58,67 +58,75 @@ export const japaneseVideos = [
   {
     id: 1,
     title: "Japanese Alphabet - Hiragana & Katakana",
-    description: "Learn the basics of Japanese writing systems with this comprehensive guide.",
+    description:
+      "Learn the basics of Japanese writing systems with this comprehensive guide.",
     level: "Beginner",
-    duration: "15 minutes",
-    videoId: "2gWq0eSuH5Y"
+    duration: "18 minutes",
+    videoId: "nxTcGPFyiUc",
   },
   {
     id: 2,
     title: "Basic Japanese Greetings and Phrases",
-    description: "Master essential Japanese greetings and common phrases for everyday conversations.",
+    description:
+      "Master essential Japanese greetings and common phrases for everyday conversations.",
     level: "Beginner",
-    duration: "12 minutes",
-    videoId: "odjZUZW9-zE"
+    duration: "7 minutes",
+    videoId: "UCjrTom0kAk",
   },
   {
     id: 3,
     title: "Japanese Numbers and Counting",
-    description: "Learn how to count in Japanese and use numbers in daily conversation.",
+    description:
+      "Learn how to count in Japanese and use numbers in daily conversation.",
     level: "Beginner",
-    duration: "10 minutes",
-    videoId: "97QZVMjXLmA"
+    duration: "15 minutes",
+    videoId: "qqT1oL7Edyk",
   },
   {
     id: 4,
     title: "Japanese Particles Explained",
-    description: "Understand the essential particles in Japanese and how to use them correctly.",
+    description:
+      "Understand the essential particles in Japanese and how to use them correctly.",
     level: "Intermediate",
-    duration: "18 minutes",
-    videoId: "syFUwDR1jHc"
+    duration: "17 minutes",
+    videoId: "37ocL_PY-Bo",
   },
   {
     id: 5,
     title: "Japanese Verb Conjugation",
-    description: "Master the art of Japanese verb conjugation with this detailed tutorial.",
+    description:
+      "Master the art of Japanese verb conjugation with this detailed tutorial.",
     level: "Intermediate",
-    duration: "20 minutes",
-    videoId: "7YR34z2wxGQ"
+    duration: "13 minutes",
+    videoId: "cGA6Tj9_lSg",
   },
   {
     id: 6,
     title: "Kanji Basics for Beginners",
-    description: "Begin your journey into learning Japanese Kanji with this beginner-friendly guide.",
+    description:
+      "Begin your journey into learning Japanese Kanji with this beginner-friendly guide.",
     level: "Intermediate",
-    duration: "25 minutes",
-    videoId: "mPppMzr3Pr4"
+    duration: "18 minutes",
+    videoId: "RKWrWRFyfYo",
   },
   {
     id: 7,
     title: "Japanese Conversation Practice",
-    description: "Practice your Japanese with real conversation examples and scenarios.",
-    level: "Intermediate", 
-    duration: "30 minutes",
-    videoId: "YgmAEG1r8Sk"
+    description:
+      "Practice your Japanese with real conversation examples and scenarios.",
+    level: "Intermediate",
+    duration: "13 minutes",
+    videoId: "VE8napIxLKM",
   },
   {
     id: 8,
     title: "Advanced Japanese Grammar Patterns",
-    description: "Take your Japanese to the next level with these advanced grammar patterns.",
+    description:
+      "Take your Japanese to the next level with these advanced grammar patterns.",
     level: "Advanced",
-    duration: "22 minutes",
-    videoId: "Ay-EwILXPYQ"
-  }
+    duration: "49 minutes",
+    videoId: "UaI7UpOl-Xk",
+  },
 ];
 
 // Define TutorialCard component outside the main component

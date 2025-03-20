@@ -10,7 +10,6 @@ const Footer = () => {
     if (email) {
       setSubscribed(true);
       setEmail("");
-      // In a real app, you would send this to your backend
       console.log("Subscribed email:", email);
     }
   };

@@ -4,25 +4,25 @@ import { tutorialsData } from './Tutorials';
 import useTutorialProgress from '../hooks/useTutorialProgress';
 import { useAuth } from '../hooks/useAuth';
 
-// Define tutorial sections outside the component to prevent re-creation on each render
-const tutorialSections = [
-  {
-    title: "Introduction",
-    content: "This section introduces the core concepts of the tutorial and what you'll learn."
-  },
-  {
-    title: "Main Content",
-    content: "Here's where the primary learning material is presented with examples and explanations."
-  },
-  {
-    title: "Practice Exercises",
-    content: "Try these exercises to reinforce what you've learned in this tutorial."
-  },
-  {
-    title: "Summary",
-    content: "A recap of the key points covered in this tutorial."
-  }
-];
+// // // Define tutorial sections outside the component to prevent re-creation on each render
+// // const tutorialSections = [
+// //   {
+// //     title: "Introduction",
+// //     content: "This section introduces the core concepts of the tutorial and what you'll learn."
+// //   },
+// //   {
+// //     title: "Main Content",
+// //     content: "Here's where the primary learning material is presented with examples and explanations."
+// //   },
+// //   {
+// //     title: "Practice Exercises",
+// //     content: "Try these exercises to reinforce what you've learned in this tutorial."
+// //   },
+// //   {
+// //     title: "Summary",
+// //     content: "A recap of the key points covered in this tutorial."
+// //   }
+// // ];
 
 const TutorialDetail = () => {
   const { id } = useParams();

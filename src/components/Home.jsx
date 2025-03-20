@@ -65,8 +65,12 @@ const Home = () => {
               className="object-cover w-full h-full"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
-              <h2 className="text-4xl font-bold mb-4 text-center">{slide.title}</h2>
-              <p className="text-xl text-center max-w-2xl">{slide.description}</p>
+              <h2 className="text-4xl font-bold mb-4 text-center">
+                {slide.title}
+              </h2>
+              <p className="text-xl text-center max-w-2xl">
+                {slide.description}
+              </p>
             </div>
           </div>
         ))}
@@ -89,11 +93,11 @@ const Home = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">About Lingo Bingo</h2>
           <p className="text-lg mb-8">
-            Lingo Bingo is designed to help you expand your Japanese vocabulary and 
-            improve your communication skills through interactive lessons, engaging 
-            tutorials, and practical exercises. Our platform makes learning Japanese 
-            fun and effective, whether you&apos;re a beginner or looking to advance 
-            your language skills.
+            Lingo Bingo is designed to help you expand your Japanese vocabulary
+            and improve your communication skills through interactive lessons,
+            engaging tutorials, and practical exercises. Our platform makes
+            learning Japanese fun and effective, whether you&apos;re a beginner
+            or looking to advance your language skills.
           </p>
           <Link
             to="/start-learning"
@@ -107,7 +111,9 @@ const Home = () => {
       {/* Success Section */}
       <section className="py-16 px-4" data-aos="fade-up">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-center">Our Success by Numbers</h2>
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            Our Success by Numbers
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="text-4xl font-bold text-blue-500 mb-2">
@@ -140,7 +146,9 @@ const Home = () => {
       {/* Learning Method Section */}
       <section className="py-16 px-4 bg-gray-50" data-aos="fade-up">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-center">Our Learning Method</h2>
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            Our Learning Method
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -148,7 +156,8 @@ const Home = () => {
               </div>
               <h3 className="text-xl font-bold mb-2">Learn</h3>
               <p className="text-gray-600">
-                Study new vocabulary with clear examples and pronunciation guides.
+                Study new vocabulary with clear examples and pronunciation
+                guides.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
@@ -157,7 +166,8 @@ const Home = () => {
               </div>
               <h3 className="text-xl font-bold mb-2">Practice</h3>
               <p className="text-gray-600">
-                Reinforce your learning through interactive exercises and quizzes.
+                Reinforce your learning through interactive exercises and
+                quizzes.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
@@ -176,7 +186,9 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="py-16 px-4" data-aos="fade-up">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-center">What Our Users Say</h2>
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            What Our Users Say
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center mb-4">
@@ -191,13 +203,15 @@ const Home = () => {
                 </div>
               </div>
               <p className="text-gray-700">
-                &ldquo;Lingo Bingo made learning Japanese enjoyable and accessible. The bite-sized lessons fit perfectly into my busy schedule!&rdquo;
+                &ldquo;Lingo Bingo made learning Japanese enjoyable and
+                accessible. The bite-sized lessons fit perfectly into my busy
+                schedule!&rdquo;
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://i.pravatar.cc/150?img=8"
+                  src="https://i.pravatar.cc/150?img=59"
                   alt="User 2"
                   className="w-12 h-12 rounded-full mr-4"
                 />
@@ -207,7 +221,9 @@ const Home = () => {
                 </div>
               </div>
               <p className="text-gray-700">
-                &ldquo;I needed to learn Japanese for business travel. This platform provided exactly what I needed to communicate confidently with my colleagues.&rdquo;
+                &ldquo;I needed to learn Japanese for business travel. This
+                platform provided exactly what I needed to communicate
+                confidently with my colleagues.&rdquo;
               </p>
             </div>
           </div>
@@ -215,11 +231,17 @@ const Home = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 bg-blue-500 text-white text-center" data-aos="fade-up">
+      <section
+        className="py-16 px-4 bg-blue-500 text-white text-center"
+        data-aos="fade-up"
+      >
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">Ready to Start Your Japanese Journey?</h2>
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Start Your Japanese Journey?
+          </h2>
           <p className="text-xl mb-8">
-            Join thousands of happy learners and begin your path to Japanese fluency today.
+            Join thousands of happy learners and begin your path to Japanese
+            fluency today.
           </p>
           <Link
             to="/start-learning"
