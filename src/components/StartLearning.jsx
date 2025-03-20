@@ -47,16 +47,15 @@ const StartLearning = () => {
 
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-4">Japanese Alphabet Tutorial</h2>
-        <div className="aspect-w-16 aspect-h-9">
+        <div className="relative overflow-hidden pb-[56.25%] h-0">
           <iframe
-            width="853"
-            height="480"
+            className="absolute top-0 left-0 w-full h-full"
             src="https://www.youtube.com/embed/QRvTwpg80sw"
             title="How to Write Japanese A to z -english Calligraphy writting✒️📖"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           ></iframe>
         </div>
         <div className="mt-4 text-center">
