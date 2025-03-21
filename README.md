@@ -3,7 +3,7 @@
 A fun and interactive language learning application designed to help users expand their Japanese vocabulary and improve their communication skills.
 
 ## Live Website
-[Lingo Bingo - Learn Japanese](https://lingo-bingo-japanese.netlify.app/)
+[Lingo Bingo : A Vocabulary Learning Application](https://lingo-bingo-a-vocabulary-learning-app.netlify.app/)
 
 ## Project Purpose
 Learning a new language can be challenging, especially when it comes to retaining vocabulary. Lingo Bingo makes this process easier and more enjoyable by providing a structured approach to learning Japanese vocabulary through interactive lessons, visual cues, and pronunciation practice.

@@ -35,6 +35,7 @@ const Login = () => {
 
   // Handle Google Login
   const handleGoogleLogin = async () => {
+    console.log(auth,googleProvider);
     try {
       await signInWithPopup(auth, googleProvider);
       toast.success("Login successful with Google!");
